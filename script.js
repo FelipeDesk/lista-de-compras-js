@@ -6,7 +6,9 @@ let contador = 0;
 botaoAdicionar.addEventListener('click', (evento) => {
     evento.preventDefault();
     
-    if (inputItem.value === ''){
+    const valor = inputItem.value.trim();
+
+    if (valor === ''){
         alert('Por favor, adicione algo na lista!');
         return;
     }
@@ -18,7 +20,8 @@ botaoAdicionar.addEventListener('click', (evento) => {
     inputCheckbox.type = 'checkbox';
     inputCheckbox.id = 'checkbox-' + contador++;
     const nomeItem = document.createElement('p');
-    nomeItem.innerText = inputItem.value;
+    nomeItem.classList.add('texto-customizado');
+    nomeItem.innerText = valor;
 
     inputCheckbox.addEventListener('click', function(){
         if (inputCheckbox.checked){
@@ -26,6 +29,12 @@ botaoAdicionar.addEventListener('click', (evento) => {
         } else{
             nomeItem.style.textDecoration = 'none';
         }
+    })
+
+    nomeItem.addEventListener('click', function(){
+        itemDaLista.remove();
+        
+        verificarListaVazia();
     })
 
     containerItemDaLista.appendChild(inputCheckbox);
@@ -45,6 +54,7 @@ botaoAdicionar.addEventListener('click', (evento) => {
     itemDaLista.appendChild(itemData);
     listaDeCompras.appendChild(itemDaLista);
 
+    inputItem.value = '';
     verificarListaVazia();
 })
 
